@@ -38,24 +38,34 @@ app.use('/logout/', protected, (req,res) => {
   res.clearCookie('jwt').render('login',{status:'logged out'});
 })
 
-app.use('/', protected, (req,res) => {
-  res.render('index', {name: req.user.username});
-})
+app.use('/home', protected, (req,res) => { // Profile page.. main page.. all posts.. new post
+  const f1 = getjson('https://covid-api.mmediagroup.fr/v1/cases');
+  const f2 = getjson('https://animechan.vercel.app/api/random');
+  const f3 = req.user.username;
+  const f4 = getjson('https://api.adviceslip.com/advice');
+  Promise.all([f1, f2, f3,f4]).then((data) => {
+    res.render("home", {
+      covidstatus         : data[0],
+      randomanimequotes   : data[1],
+      name                : data[2],
+      advice              : data[3],
+    });
+  }).catch(err => console.error('There was a problem', err));
+});
 
-// app.use('/', protected, (req,res) => { // Profile page.. main page.. all posts.. new post
-//   const f1 = getjson('https://covid-api.mmediagroup.fr/v1/cases?country=Bangladesh');
-//   const f2 = getjson('https://animechan.vercel.app/api/random');
-//   const f3 = req.user.username;
-//   const f4 = getjson('https://api.adviceslip.com/advice');
-//   Promise.all([f1, f2, f3,f4]).then((data) => {
-//     res.render("index", {
-//       covidstatus         : data[0],
-//       randomanimequotes   : data[1],
-//       name                : data[2],
-//       advice              : data[3],
-//     });
-//   }).catch(err => console.error('There was a problem', err));
-// });
+app.use('/', (req,res) => { // Profile page.. main page.. all posts.. new post
+  const f1 = getjson('https://covid-api.mmediagroup.fr/v1/cases');
+  const f2 = getjson('https://animechan.vercel.app/api/random');
+  const f3 = getjson('https://api.adviceslip.com/advice');
+  Promise.all([f1, f2, f3]).then((data) => {
+    res.render("index", {
+      covidstatus         : data[0],
+      randomanimequotes   : data[1],
+      advice              : data[2],
+    });
+  }).catch(err => console.error('There was a problem', err));
+});
+
 
 // Connecting Database .env file must be in root directory
 mongoose.connect(process.env.DB_CONNECTION,

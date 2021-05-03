@@ -70,7 +70,7 @@ router.post('/login', async (req, res, next) => {
       }, process.env.Secret_Key, {
         expiresIn: '1h'
       });
-      res.cookie('jwt',token, { httpOnly: true }).redirect('/');      
+      res.cookie('jwt',token, { httpOnly: true }).redirect('/home');      
     } else {
       res.render('login',{status:'Wrong password'});
     }

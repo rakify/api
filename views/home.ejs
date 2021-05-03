@@ -1,0 +1,50 @@
+<html lang="en">
+
+<head>
+    <%- include('./head'); %>
+</head>
+
+
+<body class="container">
+    <header>
+        <%- include('./header'); %>
+    </header>
+    <main>
+        <%if (locals.post) { %>
+        You have total <%- post.length %> post(s) displaying below:
+        <hr>
+        <% for(let i=post.length-1; i >= 0; i--) { %>
+        <div class="post-head" style="width:1000;text-align:center;margin-left: auto;margin-right: auto;">
+            <%=i+1%>. <%= post[i].title %> </div>
+        <div class="post-body" style="width:700;margin-left: auto;margin-right: auto;">
+            <%= post[i].body %> <br>
+            Created at: <%= post[i].createdAt %><br>
+            <a href="post/<%= post[i].id %>/edit">edit</a> | <a href="post/<%= post[i].id %>/delete">delete</a>
+        </div>
+        <br>
+        <% } %>
+        <% } %>
+
+
+        <%if (locals.posts) { %>
+        Total <%- posts.length %> posts displaying below:
+        <hr>
+        <% for(let i=posts.length-1; i >= 0; i--) { %>
+        <div style="background-color: cadetblue;text-align: center;
+            font-weight: bolder; width:800; margin-left: auto;margin-right: auto;">
+            <%= i+1 %>. <%= posts[i].title %></div> Posted at: <%= posts[i].createdAt %> by
+        <%= posts[i].username %><br><br>
+        <div style="background-color: azure;"><%= posts[i].body %>
+           
+        </div><br>
+        <% } %>
+        <% } %>
+
+
+        <footer>
+            <%- include('./footer'); %>
+        </footer>
+    </main>
+</body>
+
+</html>

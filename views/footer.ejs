@@ -1,24 +1,49 @@
 <% if (locals.covidstatus) { %>
-    <p class="text-center text-muted"><div class = "post-head">Covid 19 (Bangladesh) UPDATE:
-        <%- covidstatus.All.updated %></div> 
-        <div class = "post-body" style = "margin-left: auto;margin-right: auto;">
-            Confirmed Cases: <%- covidstatus.All.confirmed %><br>
-            Recovered: <%- covidstatus.All.recovered %><br>
-            Total deaths: <%- covidstatus.All.deaths %></div>
-    </p>
-    <% } %>
+<p class="text-center text-muted">
+    <table width = "100%">Covid 19 Update
+        <tr>
+            <th width = "50%" align ="center">Bangladesh</th>
+            <th width = "50%" align = "center">Global</th>
+        </tr>
+        <tr>
+            <td>
+                Confirmed Cases: <%- covidstatus.Bangladesh.All.confirmed %>
+            </td>
+            <td>
+                Confirmed Cases: <%- covidstatus.Global.All.confirmed %>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Recovered: <%- covidstatus.Bangladesh.All.recovered %>
+            </td>
+            <td>
+                Recovered: <%- covidstatus.Global.All.recovered %>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Total deaths: <%- covidstatus.Bangladesh.All.deaths %>
+            </td>
+            <td>
+                Total deaths: <%- covidstatus.Global.All.deaths %>
+            </td>
+        </tr>
+    </table>
+</p>
+<% } %>
 
-    <% if (locals.randomanimequotes && locals.advice) { %>
+<% if (locals.randomanimequotes && locals.advice) { %>
 <div class="random-head">Random Things: </div>
-    <u>Advice of the second:</u> <%- advice.slip.advice %><br>
-    <u>Anime Quotes:</u> "<%- randomanimequotes.quote %>"
-    <%- randomanimequotes.character %>,
-    <%- randomanimequotes.anime %>
+<u>Advice of the second:</u> <%- advice.slip.advice %><br>
+<u>Anime Quotes:</u> "<%- randomanimequotes.quote %>"
+<%- randomanimequotes.character %>,
+<%- randomanimequotes.anime %>
 <% } %>
 
 <%if (locals.name) { %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Home</a>
+    <a class="navbar-brand" href="/home">Home</a>
     <ul class="navbar-nav mr-auto">
         <li class="nav-item">
             <a class="nav-link" href="/post_status">Add Post</a>
@@ -31,6 +56,17 @@
         </li>
     </ul>
 </nav>
-<% } %>
+<% } else { %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+            </li>
+        </ul>
+    </nav>
+<% } %>    
 
 <p class="text-center text-muted" style="background:lightgray">© Copyright 2021</p>
