@@ -1,0 +1,41 @@
+<html lang="en">
+
+<head>
+    <%- include('./head'); %>
+</head>
+
+<body class="container">
+    <header>
+        <%- include('./header'); %>
+    </header>
+    <main>
+        <hr>
+        <h3 class="navbar navbar-expand-lg navbar-light bg-light">Create new Account
+        </h3>
+        <script src="/js/example.js"></script>
+
+        <div>
+            <form action='/user/register' method="POST">
+                <div>
+                    <label for="username">Username:</label><br>
+                    <input type="text" name="username" id="username" minlength="3" required>
+                </div>
+                <div>
+                    <label for="password">Password:</label><br>
+                    <input type="password" name="password" id="password" minlength="3" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label><br>
+                    <input type="text" name="email" id="email">
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <p>Already registered? <a href="/">login</a> here</p>
+    </main>
+    <footer>
+        <%- include('./footer'); %>
+    </footer>
+</body>
+
+</html>

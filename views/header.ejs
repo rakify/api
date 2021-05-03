@@ -1,0 +1,14 @@
+<%if (locals.name) { %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand">
+    Hi <%= name %>
+    <a href="/logout">(logout)</a>
+  </a>
+</nav>
+<% } %>
+
+<%if (locals.status) { %>
+  <div style='background-color:greenyellow;display:inline-block;font-weight:bolder'>
+    <%- status %>
+  </div>
+<% } %>

@@ -1,0 +1,18 @@
+.xx{
+    color:red 
+ }
+ .red{
+     color:red
+ }
+.post-head{
+     background-color: cadetblue;
+     text-align: center;
+     font-weight: bolder;
+}
+.random-head{
+    border-color: darkblue;
+    font-weight: bolder;
+}
+.post-body{
+    background-color: azure;
+}
