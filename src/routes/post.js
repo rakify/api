@@ -14,7 +14,7 @@ router.get('/', protected, async (req, res) => {
             username: req.user.username
         });
 
-        if (!post.length) return res.render('home',{status: 'Dont feel shy.. Go ahead write whatever on your mind', name: req.user.username});
+        if (!post.length) return res.render('home',{statusEmpty: 'Dont feel shy.. Go ahead write whatever on your mind', name: req.user.username});
         res.render('home',{post:post, name: req.user.username});
     } catch (err) {
         res.status(400).render('login');
@@ -28,7 +28,7 @@ router.get('/all', protected, async (req, res, next) => {
     const posts = await PostModel.find();
     res.render('home',{posts:posts,name:req.user.username});
   } catch (err) {
-    res.render('home',{status: 'No Posts found',name: req.user.username});
+    res.render('home',{status: 'No Posts found',name: req.user.username, postwait:3});
   }
 });
 
@@ -37,10 +37,10 @@ router.get('/all', protected, async (req, res, next) => {
 router.get('/:id/edit', async (req, res) => {
   try {
       const post = await PostModel.findById(req.params.id);
-      if(req.user.username !== post.username) return res.render('index',{status:'User mismatch'})
+      if(req.user.username !== post.username) return res.render('index',{status:'User mismatch', postwait:3})
       res.render('edit_status',{post:post});
   } catch (err) { 
-      res.render('home', {name:req.user.username,status:'Invalid Id'})
+      res.render('home', {name:req.user.username,status:'Invalid Id', postwait:3})
   }
 });
 // Update post using post method
@@ -53,9 +53,9 @@ router.post('/:id/edit', protected, async (req, res) => {
     }
 
   await PostModel.findByIdAndUpdate(req.params.id, post);
-  res.render('home', {name:req.user.username,status:'Post updated successfully'})
+  res.render('home', {name:req.user.username,status:'Post updated successfully', postwait:3})
   } catch (err) { 
-  res.render('home', {name:req.user.username,status:'Invalid Id'})
+  res.render('home', {name:req.user.username,status:'Invalid Id', postwait:3})
   
   }
 });
@@ -63,19 +63,15 @@ router.post('/:id/edit', protected, async (req, res) => {
 // Delete post
 router.get('/:id/delete', protected, async (req, res) => {
   const post = await PostModel.findById(req.params.id);
-  if(req.user.username !== post.username) return res.render('index',{status:'User mismatch'})
+  if(req.user.username !== post.username) return res.render('index',{status:'User mismatch', postwait:3,name:req.user.username})
   try { await PostModel.findByIdAndDelete(req.params.id);
-      res.render('home',{status:'Post deleted successfully'});
+      res.render('home',{status:'blog deleted successfully', name: req.user.username,postwait:3});
   } catch (err) {
       console.log({
           message: err
       });
   }
 });
-
-
-
-
 
 router.post('/add', protected, async (req, res) => {
     const {
@@ -92,10 +88,9 @@ router.post('/add', protected, async (req, res) => {
           title: title,
           body: body
         });
-        res.render('home', {status : `New post created! <a href='/post'>View</a>`})
+        res.render('home', {status : `New blog created!`, name: req.user.username, postwait:3})
       } catch (err) {
-        console.log(err);
-        res.status(500).render('home',{status:`This error happends when similar post exists or Server is undergoing maintenance. <a href='/post'>Go back</a>`});
+        res.status(500).render('home',{status:`This blog already posted`, name: req.user.username, postwait:3});
       }
     
 });

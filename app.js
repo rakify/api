@@ -29,9 +29,11 @@ app.use('/post_status', protected, (req,res) => {
   res.render('post_status', {name: req.user.username});
 });
 app.use('/login/', (req, res) => { // Login page
+  if(req.cookies.jwt)return res.redirect('/home');
   res.render('login');
 });
 app.use('/register/', (req, res) => { // Register page
+  if(req.cookies.jwt)return res.redirect('/home');
   res.render('register');
 });
 app.use('/logout/', protected, (req,res) => {
@@ -53,7 +55,8 @@ app.use('/home', protected, (req,res) => { // Profile page.. main page.. all pos
   }).catch(err => console.error('There was a problem', err));
 });
 
-app.use('/', (req,res) => { // Profile page.. main page.. all posts.. new post
+app.use('/', (req,res) => { // home page
+  if(req.cookies.jwt)return res.redirect('/home');
   const f1 = getjson('https://covid-api.mmediagroup.fr/v1/cases');
   const f2 = getjson('https://animechan.vercel.app/api/random');
   const f3 = getjson('https://api.adviceslip.com/advice');
