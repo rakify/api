@@ -14,6 +14,18 @@
 
 <%if (locals.status) { %>
   <div style='background-color:greenyellow;display:inline-block;font-weight:bolder'>
-    <%- status %>
+    <%- status %> redirecting....
   </div>
+  <script>
+  setTimeout(function(){
+    window.location = "/post";
+   },3000);
+   </script>   
 <% } %>
+
+<%if (locals.statusEmpty) { %>
+  <div style='background-color:greenyellow;display:inline-block;font-weight:bolder'>
+    <%- statusEmpty %>
+  </div>
+  <% } %>
+
