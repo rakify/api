@@ -22,7 +22,7 @@ router.get('/', protected, async (req, res) => {
 
 });
 
-
+// Get all user posts
 router.get('/all', protected, async (req, res, next) => {
   try {
     const posts = await PostModel.find();
