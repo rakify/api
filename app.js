@@ -1,14 +1,12 @@
-const express          = require('express');
-const cookieParser = require('cookie-parser');
-const path           = require('path');
-const mongoose         = require('mongoose');
-const getjson             = require('get-json');
-const app              = express();
+const express                                  = require('express');
+const cookieParser                             = require('cookie-parser');
+const mongoose                                 = require('mongoose');
+const getjson                                  = require('get-json');
+const app                                      = express();
+const protected                                = require('./src/routes/verifyAuth');
+const userController                           = require('./src/routes/user');
+const postController                           = require('./src/routes/post')
 require('dotenv').config();
-const protected          = require('./src/routes/verifyAuth');
-const userController        = require('./src/routes/user');
-const postController       = require('./src/routes/post')
-
 
 // Set view engine
 app.set('view engine', 'ejs');
@@ -20,31 +18,31 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Routes + Controllers
-app.use('/post', protected, postController);
-app.use('/user', userController);
-app.use('/edit_status', protected, (req,res) => {
+app.use('/post/', protected, postController);
+app.use('/user/', userController);
+app.use('/edit_status/', protected, (req,res) => {
   res.render('edit_status', {name: req.user.username});
 });
-app.use('/post_status', protected, (req,res) => {
+app.use('/post_status/', protected, (req,res) => {
   res.render('post_status', {name: req.user.username});
 });
-app.use('/login/', (req, res) => { // Login page
+app.use('/login/', (req, res) => {
   if(req.cookies.jwt)return res.redirect('/home');
   res.render('login');
 });
-app.use('/register/', (req, res) => { // Register page
+app.use('/register/', (req, res) => {
   if(req.cookies.jwt)return res.redirect('/home');
   res.render('register');
 });
 app.use('/logout/', protected, (req,res) => {
-  res.clearCookie('jwt').render('login',{status:'logged out'});
+  res.clearCookie('jwt').render('login',{msg:'logged out'});
 })
 
-app.use('/home', protected, (req,res) => { // Profile page.. main page.. all posts.. new post
-  const f1 = getjson('https://covid-api.mmediagroup.fr/v1/cases');
-  const f2 = getjson('https://animechan.vercel.app/api/random');
+app.use('/home', protected, (req,res) => { // LoggedIn
+  const f1 = getjson("https://covid-api.mmediagroup.fr/v1/cases");
+  const f2 = getjson("https://animechan.vercel.app/api/random");
   const f3 = req.user.username;
-  const f4 = getjson('https://api.adviceslip.com/advice');
+  const f4 = getjson("https://api.adviceslip.com/advice");
   Promise.all([f1, f2, f3,f4]).then((data) => {
     res.render("home", {
       covidstatus         : data[0],
@@ -52,21 +50,22 @@ app.use('/home', protected, (req,res) => { // Profile page.. main page.. all pos
       name                : data[2],
       advice              : data[3],
     });
-  }).catch(err => console.error('There was a problem', err));
+  }).catch(err => res.render('home',{errorMsg:err}));
 });
 
-app.use('/', (req,res) => { // home page
+app.use('/', (req,res) => { // Public
   if(req.cookies.jwt)return res.redirect('/home');
-  const f1 = getjson('https://covid-api.mmediagroup.fr/v1/cases');
-  const f2 = getjson('https://animechan.vercel.app/api/random');
-  const f3 = getjson('https://api.adviceslip.com/advice');
+  const f1 = getjson("https://covid-api.mmediagroup.fr/v1/cases");
+  const f2 = getjson("https://animechan.vercel.app/api/random");
+  const f3 = getjson("https://api.adviceslip.com/advice");
+  
   Promise.all([f1, f2, f3]).then((data) => {
     res.render("index", {
       covidstatus         : data[0],
       randomanimequotes   : data[1],
       advice              : data[2],
     });
-  }).catch(err => console.error('There was a problem', err));
+  }).catch(err => res.render('index',{errorMsg:err}));
 });
 
 

@@ -12,9 +12,15 @@
 </nav>
 <% } %>
 
-<%if (locals.status) { %>
-  <div style='background-color:greenyellow;display:inline-block;font-weight:bolder'>
-    <%- status %> redirecting....
+<%if (locals.msg) { %>
+  <div class = 'msg'>
+    <%- msg %>
+  </div>
+<% } %>
+
+<%if (locals.successMsg) { %>
+  <div class = 'successMsg'>
+    <%- successMsg %>
   </div>
   <script>
   setTimeout(function(){
@@ -23,9 +29,21 @@
    </script>   
 <% } %>
 
-<%if (locals.statusEmpty) { %>
-  <div style='background-color:greenyellow;display:inline-block;font-weight:bolder'>
-    <%- statusEmpty %>
+<%if (locals.errorMsg) { %>
+  <div class = 'errorMsg'>
+    <%- errorMsg %>
+  </div>
+  <script>
+  setTimeout(function(){
+    window.location = "/post";
+   },3000);
+   </script>   
+<% } %>
+
+
+<%if (locals.emptyMsg) { %>
+  <div class = 'emptyMsg'>
+    <%- emptyMsg %>
   </div>
   <% } %>
 

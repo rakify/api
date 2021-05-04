@@ -1,32 +1,50 @@
-.xx{
-    color:red 
- }
- .red{
-     color:red
- }
-.post-head{
-     background-color: cadetblue;
-     text-align: center;
-     font-weight: bolder;
-}
-.random-head{
-    border-color: darkblue;
-    font-weight: bolder;
-}
-.post-body{
-    background-color: azure;
-}
-
-table, th, td {
+.successMsg {
+    color: black;
     border-collapse: collapse;
     border: 1px solid #ddd;
     padding: 8px;
 }
-th{
+
+.errorMsg {
+    color: red;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.msg {
+    color: cadetblue;
+}
+
+.post-head {
+    background-color: darkseagreen;
+    text-align: center;
+    font-weight: bolder;
+    color: black;
+}
+
+.random-head {
+    border-color: darkblue;
+    font-weight: bolder;
+}
+
+.post-body {
+    background-color: azure;
+}
+
+table,
+th,
+td {
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
     padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
 
 }

@@ -1,12 +1,12 @@
 {
-  "name": "notable",
+  "name": "simple_login_registration",
   "version": "1.0.0",
-  "description": "",
+  "description": "Login, registration, CRUD, Express, Ejs, Mongoose, Jsonwebtoken, Bcrypt, Joi, Cookie parser, dotenv",
   "main": "app.js",
   "scripts": {
     "start": "nodemon src/app.js"
   },
-  "author": "",
+  "author": "Rakib Miah",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
