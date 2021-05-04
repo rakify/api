@@ -23,8 +23,8 @@
             <tr>
                 <td class = "post-body">
                     <%= post[i].body %> <br>
-            Created at: <%= post[i].createdAt %><br>
-            <a href="post/<%= post[i].id %>/edit">edit</a> | <a href="post/<%= post[i].id %>/delete">delete</a>
+                    <a href="post/<%= post[i].id %>/edit">edit</a> | <a href="post/<%= post[i].id %>/delete">delete</a>
+                    <br>Created at: <%= post[i].createdAt %><br>
                 </td>
             </tr>
         </table>    
@@ -47,7 +47,7 @@
                     Posted at: <%= posts[i].createdAt %> by
                     <%= posts[i].username %><br><br>
                     <%= posts[i].body %>
-                </td>
+                </td><br>
             </tr>
         </table>
         <% } %>
