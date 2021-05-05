@@ -8,7 +8,7 @@ const {
   loginValidation
 }                                                          = require('./validation');
 const express                                              = require('express');
-const router                                               = express();
+const router                                               = express.Router();
 router.use(cookieParser());
 
 
